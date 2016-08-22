@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<title>cpuheatbars</title>
+<style>
+html,
+body,
+#canvas
+{
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	background: black;
+	display: block;
+}
+#canvas
+{
+	border-right: 1px solid rgba(0, 255, 0, 0.25);
+	border-left: 1px solid rgba(0, 255, 0, 0.25);
+}
+</style>
+</head>
+<body><canvas id="canvas"></canvas></body>
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var ws = new WebSocket("ws://localhost:1234");
+var width = canvas.width = canvas.offsetWidth;
+var height = canvas.height = canvas.offsetHeight;
+var barStep = width / 100;
+
+ws.onmessage = (evt) => {
+	let data = JSON.parse(evt.data);
+	let barHeight = Math.round(height / data.length);
+
+	ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+	ctx.fillRect(0, 0, width, height);
+	ctx.fillStyle = "rgba(0, 255, 0, 0.25)";
+	for (let i = 0; i < data.length; i++) {
+		let d = data[i];
+		ctx.fillRect(0, barHeight*i, Math.ceil(barStep*d), barHeight-1);
+	}
+}
+
+ws.onopen = () => {
+	ws.send("x");
+	window.setInterval(()=>{ws.send("x");}, 1000);
+}
+</script>
+</html>
