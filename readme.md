@@ -2,6 +2,8 @@
 
 `cpuheatbars` is a prototype of a *linux desktop widget* to show current processor load as *bars that kinda fade in/out*.
 
+![screenshot](screenshot.gif?raw=true "screenshot of cpuheatbars")
+
 ## todo
 
 - draw with qt
