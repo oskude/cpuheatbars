@@ -2,8 +2,7 @@
 #define SERVER_H
 
 #include <QObject>
-#include <QVector>
-#include <QRegularExpression>
+#include "procstat.h"
 
 QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 QT_FORWARD_DECLARE_CLASS(QWebSocket)
@@ -26,8 +25,7 @@ private Q_SLOTS:
 private:
     QWebSocketServer *m_pWebSocketServer;
     QList<QWebSocket *> m_clients;
-    QVector< QVector< int > > jiffies;
-    QRegularExpression cpuRe;
+    ProcStat ps;
 };
 
 #endif // SERVER_H

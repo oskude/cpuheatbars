@@ -7,10 +7,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    server.cpp
+    server.cpp \
+    procstat.cpp
 
 HEADERS  += \
-    server.h
+    server.h \
+    procstat.h
 
 DISTFILES += \
     main.html
