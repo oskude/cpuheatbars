@@ -12,7 +12,7 @@ public:
     QJsonArray getStats();
 private:
     QVector< QVector< int > > jiffies;
-    QRegularExpression cpuRe;
+    QRegularExpression re;
 };
 
 #endif // PROCSTAT_H

@@ -7,7 +7,7 @@
 
 ProcStat::ProcStat()
 {
-    cpuRe.setPattern("^(cpu)([0-9]*)");
+    re.setPattern("^([a-z_]+)([0-9]*)");
     // TODO: ...
     jiffies.resize(4);
     jiffies[0].resize(2);
@@ -27,9 +27,9 @@ QJsonArray ProcStat::getStats()
     while (!in.atEnd()) {
         QString line = in.readLine();
         QStringList parts = line.split(" ");
-        QRegularExpressionMatch match = cpuRe.match(parts.at(0));
+        QRegularExpressionMatch match = re.match(parts.at(0));
         if (match.hasMatch()) {
-            if (!match.captured(2).isEmpty()) {
+            if (match.captured(1) == "cpu" && !match.captured(2).isEmpty()) {
                 int cpuNr = match.captured(2).toInt();
                 int jiffTotal = 0;
                 int jiffWork = 0;
